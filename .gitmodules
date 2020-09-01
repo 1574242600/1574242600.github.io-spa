@@ -1,0 +1,3 @@
+[submodule "theme/yoshino"]
+	path = theme/yoshino
+	url = https://github.com/1574242600/yoshino.git
