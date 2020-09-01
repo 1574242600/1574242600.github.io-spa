@@ -27,9 +27,9 @@ jobs:
       run: |
         git clone https://github.com/1574242600/1574242600.github.io-spa.git .deploy_git
         git submodule update --init --recursive
-        git submodule foreach --recursive git pull
         npm ci
         cd ./theme/yoshino
+        git pull
         npm ci
         cd ../../
     - name: build
