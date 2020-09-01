@@ -29,6 +29,7 @@ jobs:
         git submodule update --init --recursive
         npm ci
         cd ./theme/yoshino
+        git config pull.rebase false
         git pull
         npm ci
         cd ../../
