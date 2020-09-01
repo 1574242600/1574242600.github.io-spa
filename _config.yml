@@ -1,0 +1,43 @@
+title: Nworm
+subtitle: ''      #暂时没用
+description: ''     #暂时没用
+keywords:         #暂时没用
+author: nworm
+avatar: //q1.qlogo.cn/g?b=qq&nk=1574242600&s=640
+language: zh-Hans
+utc: 8
+since: 2019-6-21 11:30:00     #世界时
+
+url: https://nworm.icu  #暂时没用
+root: /   #暂时没用
+
+listener: 
+  visibilitychange:
+    enable: true
+    show_text: 谢谢您,愿意陪我
+    hide_text: 不要离开我,好吗
+
+index_generator:
+  per_page: 10
+
+menu:
+  Home: /home
+  Archives: /archives
+  About: /about
+  Link: /link
+  
+link:
+  - name|about|http|http
+
+comment:
+  disqus:
+    enable: true
+    id: nworm
+
+contact:
+  github: 1574242600
+  twitter: null
+  fb: null
+  line: null
+  stackoverflow: null
+  qq: null
