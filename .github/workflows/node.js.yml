@@ -38,7 +38,7 @@ jobs:
         cd ./theme/yoshino
         npm run build
         cd ../../
-        cp ./theme/yoshino/build ./build -r
+        cp ./theme/yoshino/build/* ./public/ -r
     - name: commit files
       run: |
         mv ./.deploy_git/.git/ ./public/
