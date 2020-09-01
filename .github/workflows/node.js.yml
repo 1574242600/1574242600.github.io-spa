@@ -30,7 +30,7 @@ jobs:
         npm ci
         cd ./theme/yoshino
         git config pull.rebase false
-        git pull
+        git pull origin dev
         npm ci
         cd ../../
     - name: build
