@@ -5,7 +5,9 @@ name: Node.js CI
 on:
   push:
     branches: [ source ]
-
+  watch:
+    types: started
+    
 jobs:
   build:
 
