@@ -215,6 +215,7 @@ class Main {
         this.Pos = new Posts();
         this.Pag = new Pages();
         this._writePosts(this.Pos.parseAllpost());
+        this._writeArchive(this.Pos.parseAllpost());
         this._writeIndex();
 
         this._handleConfig();
@@ -287,6 +288,23 @@ class Main {
             let path = getPubilc() + Md.getFileName().split('.')[0] + '.json';
             File.write(path, Md.toJson());
         })
+    }
+
+    _writeArchive(Md_list) {
+        let archive = [];
+        for (let t in Md_list) {
+            for (let i in Md_list[t]) {
+                let Md = Md_list[t][i];
+                let id = this.Pos.total - (Number(t * CONFIG.index_generator.per_page) + Number(i));
+                archive.push({
+                    id: id,
+                    title: Md.info.title,
+                    date: Md.info.date
+                })
+            }
+        }
+
+        File.write(getPubilc('/archive.json'), JSON.stringify(archive))
     }
 }
 
