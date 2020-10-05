@@ -217,6 +217,7 @@ class Main {
         this._writePosts(this.Pos.parseAllpost());
         this._writeArchive(this.Pos.parseAllpost());
         this._writeIndex();
+        this._writeLink();
 
         this._handleConfig();
         this._writeConfig();
@@ -245,7 +246,6 @@ class Main {
     }
 
     _writeConfig() {
-        delete CONFIG.link;
         File.write(getPubilc('/config.json'), JSON.stringify(CONFIG))
     }
 
@@ -305,6 +305,20 @@ class Main {
         }
 
         File.write(getPubilc('/archive.json'), JSON.stringify(archive))
+    }
+
+    _writeLink() {
+        const linkList = CONFIG.link.map(v => {
+            const data = v.split('|');
+            return {
+                name: data[0],
+                intr: data[1],
+                url: data[2],
+                avatar: data[3]
+            }
+        })
+
+        File.write(getPubilc('/link.json'), JSON.stringify(linkList))
     }
 }
 
