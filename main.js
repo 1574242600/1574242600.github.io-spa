@@ -3,6 +3,7 @@ const yaml = require('js-yaml');
 const parseMD = require('parse-md').default
 const marked = require("marked");
 const path = require("path");
+const hljs = require('highlight.js');
 const CONFIG = yaml.safeLoad(fs.readFileSync('./_config.yml', 'utf8'));
 const OUT_PATH = 'public';
 
@@ -128,7 +129,7 @@ class Md {
             src = src.split('<!--more-->')[0];
         }
 
-        return marked(src);
+        return hljs.highlightAuto(marked(src)).value;
     }
 
     _getNav() {
