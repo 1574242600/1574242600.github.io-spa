@@ -8,7 +8,21 @@ const CONFIG = yaml.safeLoad(fs.readFileSync('./_config.yml', 'utf8'));
 const OUT_PATH = 'public';
 
 
-function getPubilc(path = '/'){
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+    }
+});
+
+function getPubilc(path = '/') {
     return `./${OUT_PATH}` + path;
 }
 
@@ -17,7 +31,7 @@ class FileClass {
         this.mkdir(getPubilc())
     }
 
-    write(path, data, options= {}) {
+    write(path, data, options = {}) {
         try {
             let writeStream = fs.createWriteStream(path, options);
             writeStream.write(data, 'utf-8');
@@ -32,7 +46,7 @@ class FileClass {
         return fs.readdirSync(path);
     }
 
-    mkdir(path, options= {}) {
+    mkdir(path, options = {}) {
         try {
             fs.accessSync(path, fs.constants.W_OK);
         } catch (err) {
@@ -47,7 +61,7 @@ class FileClass {
                 fs.createReadStream(src).pipe(fs.createWriteStream(dist));
                 return true;
             }
-            
+
             this.mkdir(dist);
             this.readdir(src).map(name => {
                 let _src = src + '/' + name;
@@ -68,7 +82,7 @@ const File = new FileClass();
 
 class Source {
     file_list = [];
-    constructor() {
+    constructor () {
         this.file_list = File.readdir('./source');
         this._copy();
     }
@@ -94,11 +108,11 @@ class Md {
         tag: undefined   //?
     };
 
-    constructor(post_path) {
+    constructor (post_path) {
         this.path = post_path;
         const { metadata, content } = parseMD(fs.readFileSync(this.path, 'utf8'));
-        metadata.date = Date.parse(metadata.date)  / 1000 - CONFIG.utc * 3600;
-        if(metadata.update) metadata.update = Date.parse(metadata.update)  / 1000 - CONFIG.utc * 3600;
+        metadata.date = Date.parse(metadata.date) / 1000 - CONFIG.utc * 3600;
+        if (metadata.update) metadata.update = Date.parse(metadata.update) / 1000 - CONFIG.utc * 3600;
         this.info = metadata;
         this.md_content_src = content;
     }
@@ -129,18 +143,18 @@ class Md {
             src = src.split('<!--more-->')[0];
         }
 
-        return hljs.highlightAuto(marked(src)).value;
+        return marked(src);
     }
 
     _getNav() {
         let count = {};  //处理相同标题
         let results = this.md_content_src.match(/(#+)\s+([\s\S]*?)[\r|\r\n]/g);
-        if(results === null) return null;
-    
+        if (results === null) return null;
+
         return results.map(result => {
             let match = result.match(/(#+)\s+([\s\S]*?)[\r|\r\n]/);
             match[2] = match[2].trim();
-            if (count[match[2]] === undefined ) {
+            if (count[match[2]] === undefined) {
                 count[match[2]] = 1
             } else {
                 count[match[2]]++;
@@ -156,7 +170,7 @@ class Posts {
     post_list = [];
     per_page = CONFIG.index_generator.per_page;
     total;
-    constructor() {
+    constructor () {
         this.post_list = File.readdir(this.posts_path);
         this.total = this.post_list.length;
     }
@@ -168,12 +182,12 @@ class Posts {
         })
 
         _Md_list = this.sortPosts(_Md_list);
-        
-        for (let t = 0; t < this.total; t += this.per_page){
+
+        for (let t = 0; t < this.total; t += this.per_page) {
             Md_list.push([])
-            for (let i = 0; i !== this.per_page; i++){
+            for (let i = 0; i !== this.per_page; i++) {
                 if (_Md_list[i + t])
-                    Md_list[t / this.per_page][i] = _Md_list[i + t] ;
+                    Md_list[t / this.per_page][i] = _Md_list[i + t];
             }
         }
 
@@ -181,8 +195,8 @@ class Posts {
     }
 
     sortPosts(Md_list) {
-        return Md_list.sort(function(a, b) {
-            return  b.info.date - a.info.date;
+        return Md_list.sort(function (a, b) {
+            return b.info.date - a.info.date;
         });
     }
 }
@@ -191,7 +205,7 @@ class Pages {
     pages_path = './source/_pages';
     page_list = [];
 
-    constructor() {
+    constructor () {
         this.page_list = File.readdir(this.pages_path);
     }
 
@@ -264,7 +278,7 @@ class Main {
                 let path = getPubilc(`/post/${t}/`) + `${id}.json`
                 File.write(path, Md.toJson())
 
-                more_list.push({id: id, data: (Md.get(true))})
+                more_list.push({ id: id, data: (Md.get(true)) })
             }
 
             File.write(getPubilc(`/post/${t}/index.json`), JSON.stringify({
