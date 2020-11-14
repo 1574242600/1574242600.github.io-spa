@@ -4,7 +4,7 @@ date: 2020-07-24 16:57:00
 tags: 
 ---
 
-![](https://nworm.icu/pan/图片/sang.jpg)
+![](https://img.nworm.icu/sang/sang.jpg)
 
 图作者: [@HamsterFragment](https://twitter.com/hamsterfragment)
 <!--more-->
