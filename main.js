@@ -8,6 +8,7 @@ const CONFIG = yaml.safeLoad(fs.readFileSync('./_config.yml', 'utf8'));
 const OUT_PATH = 'public';
 
 
+//todo: 行号
 marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
