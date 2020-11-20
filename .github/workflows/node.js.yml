@@ -27,8 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: install
       run: |
-        git config user.name "Nworm"
-        git config user.email "1574242600@qq.com"
+        git config --global user.name "Nworm"
+        git config --global user.email "1574242600@qq.com"
         git clone https://github.com/1574242600/1574242600.github.io-spa.git .deploy_git
         git submodule update --init --recursive --remote
         npm ci
