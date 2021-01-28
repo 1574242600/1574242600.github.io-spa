@@ -1,0 +1,21 @@
+{
+    "Home": "主页",
+    "Archives": "归档",
+    "About": "关于",
+    "Link": "朋友",
+    "Links": "朋友们",
+    "Posted": "发表于",
+    "Updated": "更新于",
+    "More": "阅读更多",
+    "SiteInfo": "站点概况",
+    "PostTotal": "日志总数",
+    "PostNav": "目录",
+    "NoPostNav": "无目录",
+    "404text": "请问您在干什么?正常情况下不应该出现404,请提交这个bug",
+    "SiteSince": "博客已存活",
+    "Day": "天",
+    "Hour":  "小时",
+    "Minute": "分",
+    "Second": "秒",
+    "Search": "搜索"
+}
